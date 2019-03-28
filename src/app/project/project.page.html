@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>project</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides>
+    <ion-slide style="display: block;" *ngFor="let group of groupList">
+      <ion-card class="card card-group">
+        <ion-card-header>
+          {{group.name}}
+          <ion-badge style="float: right;" [color]="group.value > 0 ? 'secondary' : group.value < 0 ? 'danger' : 'primary'"
+            item-end>{{group.value | number: '1.2'}}</ion-badge>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list class="list">
+            <ion-reorder-group>
+              <div class="scroll-group">
+                <ion-card class="card little-card" *ngFor="let cel of group.cels" color="light">
+                  <ion-card-header>
+                    <ion-icon slot="start" name="add"></ion-icon>
+                    <ion-label>
+                      <b style="font-weight: bold;
+                    font-size: 0.85rem;"> Tipo </b>
+                      <p style="float: right; color: #00000088">Dia da semana</p> <br>
+                      <div style="font-weight: 100;">{{cel.name}}
+                      </div>
+                    </ion-label>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div style="font-weight: 100;">
+                      {{cel.value | number: '1.2'}}
+                    </div>
+                  </ion-card-content>
+
+                  <ion-reorder slot="end"></ion-reorder>
+                  </ion-card>
+              </div>
+            </ion-reorder-group>
+          </ion-list>
+          <ion-button class="button" clear>Adicionar</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-button block>Adicionar grupo</ion-button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

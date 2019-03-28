@@ -14,7 +14,9 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  }
+  },
+  { path: 'modal-create-project', loadChildren: './home/modal-create-project/modal-create-project.module#ModalCreateProjectPageModule' },
+  { path: 'project/:id', loadChildren: './project/project.module#ProjectPageModule' }
 ];
 
 @NgModule({

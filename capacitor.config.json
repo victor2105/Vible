@@ -1,0 +1,6 @@
+{
+  "appId": "com.vhstudio.vible",
+  "appName": "Vible2.0",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

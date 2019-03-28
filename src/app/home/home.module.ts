@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { ModalCreateProjectPage } from './modal-create-project/modal-create-project.page';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, ModalCreateProjectPage],
+  entryComponents: [ModalCreateProjectPage]
 })
 export class HomePageModule {}
