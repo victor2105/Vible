@@ -53,7 +53,7 @@ export class ProjectPage implements OnInit {
   newItem(group) {
     let cel = new Cel();
     cel.name = "Nova Célula";
-    cel.value = 1 + (Math.random() * 100);
+    cel.value = 0;
     group.list.push(cel);
 
     this.sumSystem.execute([group]);

@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-reorder-group (ionItemReorder)="reorderSystem.execute(home, $event)" disabled="true" >
-      <ion-item [routerLink]="'/project/' + item.key" routerDirection="root" *ngFor="let item of home.list">
+      <ion-item style="background-color: white;" [routerLink]="'/project/' + item.key" routerDirection="root" *ngFor="let item of home.list">
         {{item.name}}
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>
@@ -20,7 +20,7 @@
   </ion-list>
 
   <ion-fab style="z-index: 2;" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="presentAlertPrompt()">
+    <ion-fab-button (click)="create()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
