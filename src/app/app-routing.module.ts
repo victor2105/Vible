@@ -11,12 +11,9 @@ const routes: Routes = [
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
   { path: 'modal-create-project', loadChildren: './home/modal-create-project/modal-create-project.module#ModalCreateProjectPageModule' },
-  { path: 'project/:id', loadChildren: './project/project.module#ProjectPageModule' }
+  { path: 'project/:id', loadChildren: './project/project.module#ProjectPageModule' },
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' }
 ];
 
 @NgModule({

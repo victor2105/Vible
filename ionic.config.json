@@ -1,5 +1,7 @@
 {
   "name": "Vible2.0",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

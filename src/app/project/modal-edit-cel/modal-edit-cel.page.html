@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-segment (ionChange)="valueSignal($event)">
+      <ion-segment-button value="1" checked>
+          <ion-icon name="add"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="-1">
+        <ion-icon name="remove"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input inputmode=“text” type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Valor</ion-label>
+      <ion-input inputmode=“text” type="text" [(ngModel)]="value"></ion-input>
+    </ion-item>
+
+    <ion-button block (click)="save()">Salvar</ion-button>
+    <ion-button block color="light" (click)="dismiss()">Cancelar</ion-button>
+  </ion-list>
+</ion-content>

@@ -10,17 +10,19 @@
 </ion-header>
 
 <ion-content>
-
   <ion-list>
-    <ion-item [routerLink]="'/project/' + item.title" routerDirection="forward" *ngFor="let item of items">
-      {{item.title}}
-    </ion-item>
+    <ion-reorder-group (ionItemReorder)="reorderSystem.execute(home, $event)" disabled="true" >
+      <ion-item [routerLink]="'/project/' + item.key" routerDirection="root" *ngFor="let item of home.list">
+        {{item.name}}
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
   </ion-list>
 
   <ion-fab style="z-index: 2;" vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="create()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-fab-button (click)="presentAlertPrompt()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
 </ion-content>
