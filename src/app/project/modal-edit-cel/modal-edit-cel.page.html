@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="end">
+          <ion-button (click)="delete()">
+            <ion-icon color="danger" slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
     <ion-title>Editar</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,7 +27,7 @@
 
     <ion-item>
       <ion-label position="floating">Valor</ion-label>
-      <ion-input inputmode=“text” type="text" [(ngModel)]="value"></ion-input>
+      <ion-input inputmode=number type="text" [(ngModel)]="value"></ion-input>
     </ion-item>
 
     <ion-button block (click)="save()">Salvar</ion-button>

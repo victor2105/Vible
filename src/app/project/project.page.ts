@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Project } from '../../models/project';
 import { SumSystem } from 'src/systems/SumSystem';
@@ -6,7 +6,7 @@ import { Cel } from 'src/models/cel';
 import { ReorderSystem } from 'src/systems/ReorderSystem';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalEditCelPage } from './modal-edit-cel/modal-edit-cel.page';
-import { ModalController, MenuController } from '@ionic/angular';
+import { ModalController, MenuController, IonInput } from '@ionic/angular';
 import { Group } from 'src/models/group';
 import { StorageService } from '../storage.service';
 
@@ -21,10 +21,16 @@ export class ProjectPage implements OnInit {
   sumSystem: SumSystem;
   reorderSystem: ReorderSystem;
 
+  selectedGroup;
   
   menuCreated = false;
   
   deleted = false;
+
+  
+  @ViewChild('appFocus') editGroupNameInput: IonInput;
+  
+  private focused: boolean = false;
 
   constructor(private menu: MenuController,
     private modalController: ModalController,
@@ -93,12 +99,18 @@ export class ProjectPage implements OnInit {
     this.menu.open('project');
   }
 
-
+  loading = false;
   // Show Modal
-  async editCel(cel: Cel) {
+  async editCel(cel: Cel, index, group: Group) {
+    if(this.loading) return;
+    this.loading = true;
     let modal = await this.modalController.create({
       component: ModalEditCelPage,
-      componentProps: { cel: cel }
+      componentProps: {
+        cel: cel,
+        index: index,
+        group: group
+      }
     });
 
     modal.onDidDismiss()
@@ -107,12 +119,21 @@ export class ProjectPage implements OnInit {
       this.save();
     });
 
-    return await modal.present();    
+    await modal.present();    
+    this.loading = false;  
   }
 
   async deletarProject(){
     await this.storage.delete(this.project.key);
     this.deleted = true;
     this.router.navigate(['home']);
+  }
+
+  focus(){
+    setTimeout(() => {
+      if(this.editGroupNameInput){
+        this.editGroupNameInput.setFocus();        
+      }
+    },150);
   }
 }
