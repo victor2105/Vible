@@ -19,23 +19,31 @@
   <ion-slides style="height: 100%" *ngIf="project" lockSwipes="true">
     <ion-slide style="display: block;" *ngFor="let group of project.list">
       <ion-card class="card card-group" color="light">
-        <ion-card-header color="light" class="card-header" (click)="selectedGroup = group; nGroupName = group.name; focused = true; focus()">
+        <ion-card-header color="light" class="card-header" >
           <ion-item color="light" lines="none" *ngIf="selectedGroup != group">
-            <b> {{group.name}} </b>
+            <b class="group-name" (click)="selectedGroup = group; nGroupName = group.name; focused = true; focus()"> {{group.name}} </b>
             <ion-badge slot="start" style="float: right;" [color]="group.value > 0 ? 'tertiary' : group.value < 0 ? 'danger' : 'primary'"
               item-end>R$ {{group.value | number: '1.2-2'}}</ion-badge>
+
+              <ion-buttons slot="end">
+                <ion-button>
+                  <ion-icon slot="icon-only" name="more"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            
           </ion-item>
           <ion-item *ngIf="selectedGroup == group">
             <ion-input #appFocus [value]="group.name" [(ngModel)]="nGroupName"></ion-input>
             <ion-badge slot="start" [color]="group.value > 0 ? 'tertiary' : group.value < 0 ? 'danger' : 'primary'"
               item-end>R$ {{group.value | number: '1.2-2'}}</ion-badge>
           </ion-item>
+          
 
         </ion-card-header>
         <ion-card-content class="card-content-custom">
           <div class="scroll-group">
             <ion-reorder-group (ionItemReorder)="reorderSystem.execute(group, $event)" disabled="false">
-              <ion-item class="card-shadow" lines="none" (click)="editCel(item, i, group)" *ngFor="let item of group.list; let i = index">
+              <ion-item class="card-shadow" lines="none" [disabled]="selectedGroup" (click)="editCel(item, i, group)" *ngFor="let item of group.list; let i = index">
                 <ion-label>
                   {{item.name}}
                 </ion-label>
@@ -48,7 +56,7 @@
               </ion-item>
             </ion-reorder-group>
           </div>
-          <ion-button color="success" (click)="newItem(group)" expand="full" fill="clear">
+          <ion-button color="success" [disabled]="selectedGroup" (click)="newItem(group)" expand="full" fill="clear">
             <ion-ripple-effect></ion-ripple-effect>
             Adicionar
           </ion-button>
@@ -61,13 +69,13 @@
   </ion-slides>
 
   <ion-fab style="z-index: 2;" vertical="bottom"horizontal="start" slot="fixed">
-    <ion-fab-button *ngIf="commandManager.canUndo()" color="light"  (click)="commandManager.undo()">
+    <ion-fab-button  [disabled]="selectedGroup"  *ngIf="commandManager.canUndo()" size="small" color="light" (click)="undo()">
       <ion-icon name="undo"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab style="z-index: 2;" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button *ngIf="commandManager.canRedo()" color="light" (click)="commandManager.redo()">
+    <ion-fab-button  [disabled]="selectedGroup"  *ngIf="commandManager.canRedo()" size="small" color="light" (click)="redo()">
       <ion-icon name="redo"></ion-icon>
     </ion-fab-button>
   </ion-fab>

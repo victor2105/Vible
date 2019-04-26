@@ -20,5 +20,9 @@ export class ChangeGroupName implements Command {
         this.group.name = this.before;
     }
 
+    redo() {
+        this.group.name = this.after;
+    }
+
 
 }

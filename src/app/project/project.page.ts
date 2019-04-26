@@ -13,6 +13,8 @@ import { CommandManager } from './helpers/CommandManager';
 import { CreateItem } from './helpers/CreateItem';
 import { CreateGroup } from './helpers/CreateGroup';
 import { ChangeGroupName } from './helpers/ChangeGroupName';
+import { EditCel } from './helpers/EditCel';
+import { DeleteCel } from './helpers/DeleteCel';
 
 @Component({
   selector: 'app-project',
@@ -70,7 +72,18 @@ export class ProjectPage implements OnInit {
   }
 
   changeGroupName(group, name){
+    if(group.name == name) return;
     this.commandManager.execute(new ChangeGroupName(group, name));
+  }
+
+  undo(){
+    this.commandManager.undo();
+    this.save();
+  }
+
+  redo(){
+    this.commandManager.redo();
+    this.save();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -85,7 +98,6 @@ export class ProjectPage implements OnInit {
   }
 
   save(){
-
     if(!this.deleted)
       this.storage.set(this.project.key, JSON.stringify(this.project));
   }
@@ -115,8 +127,17 @@ export class ProjectPage implements OnInit {
     });
 
     modal.onDidDismiss()
-    .then(()=>{
-      this.sumSystem.execute(this.project.list);
+    .then((data:any) =>{
+      console.log(data);
+      if(data.data == null) return;
+      data = data.data;
+
+      if(data.delete){
+        this.commandManager.execute(new DeleteCel(data.index, data.group, this.sumSystem));
+      }else{
+        this.commandManager.execute(new EditCel(cel, data.cel, data.group, this.sumSystem));
+      }
+
       this.save();
     });
 

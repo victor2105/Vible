@@ -43,19 +43,16 @@ export class ModalEditCelPage implements OnInit {
   }
 
   save() {
-    this.cel.name = this.name;
-    this.cel.value= this.signal * this.value;
-
-    this.modalController.dismiss(this.cel);
+    const cel = {name: this.name, value: this.signal * this.value};
+    this.modalController.dismiss({cel: cel, group: this.group});
   }
 
   dismiss() {
-    this.modalController.dismiss(this.cel);
+    this.modalController.dismiss();
   }
 
   delete(){
-    this.group.list.splice(this.index, 1);
-    this.modalController.dismiss();
+    this.modalController.dismiss({delete: true, index: this.index, group: this.group});
   }
 
 }

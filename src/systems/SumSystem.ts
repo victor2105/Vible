@@ -3,6 +3,10 @@ import { System } from './System';
 
 export class SumSystem extends System {
 
+    /**
+     * 
+     * @param \[ groupA, groupB, ...\]
+     */
     public execute(groups: Array<Group>) {
         if(!this.enabled) return;
 
