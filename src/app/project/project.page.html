@@ -17,7 +17,7 @@
 
 <ion-content id="project" color="primary">
   <ion-slides style="height: 100%" *ngIf="project" lockSwipes="true">
-    <ion-slide style="display: block;" *ngFor="let group of project.list">
+    <ion-slide style="display: block;" *ngFor="let group of project.list; let groupIndex = index">
       <ion-card class="card card-group" color="light">
         <ion-card-header color="light" class="card-header" >
           <ion-item color="light" lines="none" *ngIf="selectedGroup != group">
@@ -26,7 +26,7 @@
               item-end>R$ {{group.value | number: '1.2-2'}}</ion-badge>
 
               <ion-buttons slot="end">
-                <ion-button>
+                <ion-button (click)="openGroupMenu($event, groupIndex)">
                   <ion-icon slot="icon-only" name="more"></ion-icon>
                 </ion-button>
               </ion-buttons>

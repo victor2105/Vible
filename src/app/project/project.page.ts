@@ -6,7 +6,7 @@ import { Cel } from 'src/models/cel';
 import { ReorderSystem } from 'src/systems/ReorderSystem';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalEditCelPage } from './modal-edit-cel/modal-edit-cel.page';
-import { ModalController, MenuController, IonInput } from '@ionic/angular';
+import { ModalController, MenuController, IonInput, PopoverController } from '@ionic/angular';
 import { Group } from 'src/models/group';
 import { StorageService } from '../storage.service';
 import { CommandManager } from './helpers/CommandManager';
@@ -15,6 +15,8 @@ import { CreateGroup } from './helpers/CreateGroup';
 import { ChangeGroupName } from './helpers/ChangeGroupName';
 import { EditCel } from './helpers/EditCel';
 import { DeleteCel } from './helpers/DeleteCel';
+import { OptionsComponent } from './options/options.component';
+import { DeleteGroup } from './helpers/DeleteGroup';
 
 @Component({
   selector: 'app-project',
@@ -41,6 +43,7 @@ export class ProjectPage implements OnInit {
 
   constructor(private menu: MenuController,
     private modalController: ModalController,
+    public popoverController: PopoverController,
     private storage: StorageService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -84,6 +87,31 @@ export class ProjectPage implements OnInit {
   redo(){
     this.commandManager.redo();
     this.save();
+  }
+
+  async openGroupMenu(ev: any, index) {
+    const popover = await this.popoverController.create({
+      component: OptionsComponent,
+      componentProps: {
+        
+        options: [{
+          code: "archive",
+          label: "Arquivar"
+        }]
+      },
+      event: ev,
+      translucent: true
+    });
+
+    popover.onDidDismiss()
+    .then(data => {
+      if(!data.data) return;
+      if(data.data.code == "archive"){
+        this.commandManager.execute(new DeleteGroup(index, this.project));
+      }
+    });
+
+    return await popover.present();
   }
 
   drop(event: CdkDragDrop<string[]>) {

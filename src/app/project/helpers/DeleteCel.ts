@@ -20,10 +20,11 @@ export class DeleteCel implements Command {
         this.sumSystem.execute([this.group]);
     }
     undo() {
-        throw new Error("Method not implemented.");
+        this.group.list.splice(this.index, 0, this.cel);
+        this.sumSystem.execute([this.group]);
     }
     redo() {
-        throw new Error("Method not implemented.");
+        this.do();
     }
 
 

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProjectPage } from './project.page';
 import { ModalEditCelPage } from './modal-edit-cel/modal-edit-cel.page';
+import { OptionsComponent } from './options/options.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProjectPage, ModalEditCelPage],
-  entryComponents: [ModalEditCelPage]
+  declarations: [ProjectPage, ModalEditCelPage, OptionsComponent],
+  entryComponents: [ModalEditCelPage, OptionsComponent]
 })
 export class ProjectPageModule {}
