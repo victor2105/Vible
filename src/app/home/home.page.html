@@ -13,6 +13,11 @@
   <ion-list>
     <ion-reorder-group (ionItemReorder)="reorderSystem.execute(home, $event)" disabled="true" >
       <ion-item style="background-color: white;" [routerLink]="'/project/' + item.key" routerDirection="root" *ngFor="let item of home.list">
+        
+        <ion-button [color]="item.background ? item.background : 'primary'" class="project-icon" slot="start">
+        
+        </ion-button>
+        
         {{item.name}}
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>
