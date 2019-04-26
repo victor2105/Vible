@@ -12,16 +12,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { EditProjectComponent } from './edit-project/edit-project.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, EditProjectComponent],
+  entryComponents: [EditProjectComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    FormsModule
   ],
   providers: [
     StatusBar,

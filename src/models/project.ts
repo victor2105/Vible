@@ -6,6 +6,9 @@ export class Project {
     public name: string;
     public list: Group[] = [];
     public archived: Group[] = [];
+
+    public background?: string;
+
     constructor(name = ''){
         this.name = name;
     }

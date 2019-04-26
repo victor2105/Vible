@@ -9,10 +9,10 @@ ion-scroll {
 .card-group {
     padding-bottom: -3px;
 }
-.card-group .list {
-   
+.card-group .list {   
     //background: #bbb;
 }
+
 .scroll-group{
     // min-height: 40px;
     overflow-x: hidden;
@@ -47,7 +47,7 @@ ion-scroll {
 
 
 .card-shadow {
-    margin: 1em;
+    margin: 0.25em;
     margin-top: 0;
     -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
             box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);

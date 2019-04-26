@@ -17,6 +17,8 @@ import { EditCel } from './helpers/EditCel';
 import { DeleteCel } from './helpers/DeleteCel';
 import { OptionsComponent } from './options/options.component';
 import { DeleteGroup } from './helpers/DeleteGroup';
+import { EditProjectComponent } from '../edit-project/edit-project.component';
+import { EditProject } from './helpers/EditProject';
 
 @Component({
   selector: 'app-project',
@@ -139,6 +141,27 @@ export class ProjectPage implements OnInit {
     this.menu.enable(true, 'project');
     this.menu.open('project');
   }
+
+  async editProject(){
+    let modal = await this.modalController.create({
+      component: EditProjectComponent,
+      componentProps: {
+        project: this.project
+      }
+    });
+
+    modal.onDidDismiss()
+    .then((data:any) =>{
+      console.log(data);
+      if(data.data == null) return;
+      data = data.data;      
+      this.commandManager.execute(new EditProject(this.project, data.name, data.background));
+      this.save();
+    });
+
+    await modal.present();
+  }
+
 
   loading = false;
   // Show Modal

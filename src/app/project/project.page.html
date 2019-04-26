@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar [color]="project && project.background ? project.background : 'primary'">
     <ion-buttons slot="end">
       <ion-button *ngIf="!selectedGroup" (click)="openMenu()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="project" color="primary">
+<ion-content id="project" [color]=" project && project.background ? project.background : 'primary'">
   <ion-slides style="height: 100%" *ngIf="project" lockSwipes="true">
     <ion-slide style="display: block;" *ngFor="let group of project.list; let groupIndex = index">
       <ion-card class="card card-group" color="light">
@@ -95,6 +95,10 @@
           </ion-item>
       </ion-list> -->
     <ion-list>
+      <ion-item (click)="editProject()">
+        <ion-icon slot="start" name="create"></ion-icon>
+        Editar Projeto
+      </ion-item>
       <ion-item (click)="deletarProject()">
         <ion-icon slot="start" name="trash"></ion-icon>
         Deletar

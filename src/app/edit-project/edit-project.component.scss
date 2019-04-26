@@ -1,0 +1,17 @@
+
+    .colors {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .squar {
+        width: 3em;
+        height: 3em;
+        border: 4px #eeeeee solid;
+    }
+
+    .active {
+        border: 4px #02aefd solid;
+    }
