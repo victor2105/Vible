@@ -4,7 +4,7 @@
       <ion-button *ngIf="!selectedGroup" (click)="openMenu()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="selectedGroup" color="secondary" (click)="selectedGroup = null;">
+      <ion-button *ngIf="selectedGroup" color="secondary" (click)="changeGroupName(selectedGroup, nGroupName); selectedGroup = null;">
         <ion-icon slot="icon-only" name="checkmark"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,14 +19,14 @@
   <ion-slides style="height: 100%" *ngIf="project" lockSwipes="true">
     <ion-slide style="display: block;" *ngFor="let group of project.list">
       <ion-card class="card card-group" color="light">
-        <ion-card-header color="light" class="card-header" (click)="selectedGroup = group; focused = true; focus()">
+        <ion-card-header color="light" class="card-header" (click)="selectedGroup = group; nGroupName = group.name; focused = true; focus()">
           <ion-item color="light" lines="none" *ngIf="selectedGroup != group">
             <b> {{group.name}} </b>
             <ion-badge slot="start" style="float: right;" [color]="group.value > 0 ? 'tertiary' : group.value < 0 ? 'danger' : 'primary'"
               item-end>R$ {{group.value | number: '1.2-2'}}</ion-badge>
           </ion-item>
           <ion-item *ngIf="selectedGroup == group">
-            <ion-input #appFocus [(ngModel)]="group.name"></ion-input>
+            <ion-input #appFocus [value]="group.name" [(ngModel)]="nGroupName"></ion-input>
             <ion-badge slot="start" [color]="group.value > 0 ? 'tertiary' : group.value < 0 ? 'danger' : 'primary'"
               item-end>R$ {{group.value | number: '1.2-2'}}</ion-badge>
           </ion-item>
@@ -59,6 +59,18 @@
       <ion-button (click)="newGroup()" expand="full" color="light">Adicionar</ion-button>
     </ion-slide>
   </ion-slides>
+
+  <ion-fab style="z-index: 2;" vertical="bottom"horizontal="start" slot="fixed">
+    <ion-fab-button *ngIf="commandManager.canUndo()" color="light"  (click)="commandManager.undo()">
+      <ion-icon name="undo"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab style="z-index: 2;" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="commandManager.canRedo()" color="light" (click)="commandManager.redo()">
+      <ion-icon name="redo"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <ion-menu *ngIf="menuCreated" contentId="project" menuId="project" side="end">
@@ -79,6 +91,7 @@
         <ion-icon slot="start" name="trash"></ion-icon>
         Deletar
       </ion-item>
-    </ion-list>
+    </ion-list>   
+
   </ion-content>
 </ion-menu>

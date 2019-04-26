@@ -9,6 +9,10 @@ import { ModalEditCelPage } from './modal-edit-cel/modal-edit-cel.page';
 import { ModalController, MenuController, IonInput } from '@ionic/angular';
 import { Group } from 'src/models/group';
 import { StorageService } from '../storage.service';
+import { CommandManager } from './helpers/CommandManager';
+import { CreateItem } from './helpers/CreateItem';
+import { CreateGroup } from './helpers/CreateGroup';
+import { ChangeGroupName } from './helpers/ChangeGroupName';
 
 @Component({
   selector: 'app-project',
@@ -20,6 +24,7 @@ export class ProjectPage implements OnInit {
   project: Project;
   sumSystem: SumSystem;
   reorderSystem: ReorderSystem;
+  public commandManager: CommandManager = new CommandManager();
 
   selectedGroup;
   
@@ -57,19 +62,15 @@ export class ProjectPage implements OnInit {
   }
 
   newItem(group) {
-    let cel = new Cel();
-    cel.name = "Nova Célula";
-    cel.value = 0;
-    group.list.push(cel);
-
-    this.sumSystem.execute([group]);
+    this.commandManager.execute(new CreateItem(group, this.sumSystem));
   }
 
   newGroup(){
-    let group = new Group();
-    group.name = "Novo";
-    group.value = 0;
-    this.project.list.push(group);
+    this.commandManager.execute(new CreateGroup(this.project));
+  }
+
+  changeGroupName(group, name){
+    this.commandManager.execute(new ChangeGroupName(group, name));
   }
 
   drop(event: CdkDragDrop<string[]>) {
